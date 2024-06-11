@@ -1,0 +1,71 @@
+/*
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+@use '../base/breakpoint.scss' as *;
+
+.InfoBox {
+  background: #fff;
+  border: 1px solid hsl(0, 0%, 90%);
+  padding: 1.5em 1.5em 0.5em;
+  margin: 0;
+
+  &-figure {
+    display: none;
+  }
+
+  &-title {
+    font-size: 1.333em;
+    font-weight: 500;
+    margin: 0 0 0.75em;
+  }
+
+  &-content p:first-child {
+    margin-top: 0;
+    padding-right: 2em;
+  }
+
+  &-content ul > li {
+    margin-bottom: 0.5em;
+  }
+
+  /* -------------- */
+  /* Breakpoint: SM */
+  /* -------------- */
+
+  @include breakpoint('SM') {
+    display: flex;
+
+    &-content {
+      flex: 1 0 0%;
+    }
+
+    &-title {
+      border-bottom: 1px solid hsl(0, 0%, 93%);
+      padding-bottom: .75em;
+    }
+
+    &-figure {
+      color: hsl(0, 0%, 80%);
+      display: block;
+      font-size: 1.75em;
+      margin-right: calc(1.5em / 2);
+    }
+
+    &-content ul {
+      max-width: 42em;
+    }
+  }
+}
