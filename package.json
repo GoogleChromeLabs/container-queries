@@ -1,0 +1,54 @@
+{
+  "name": "container-queries",
+  "description": "A modern strategy for styling components based on the size of their container",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/GoogleChromeLabs/container-queries.git"
+  },
+  "private": true,
+  "type": "module",
+  "author": {
+    "name": "Philip Walton",
+    "url": "https://philipwalton.com"
+  },
+  "bugs": {
+    "url": "https://github.com/GoogleChromeLabs/container-queries/issues"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "rm -rf ./public && node tasks/build.js & rollup -c",
+    "start": "node tasks/build.js && rollup -w -c --no-watch.clearScreen & node tasks/watch.js",
+    "deploy": "NODE_ENV=production npm run build && gsutil -m rsync -rd public gs://chrome-dev-demos/public/container-queries"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "bracketSpacing": false,
+    "quoteProps": "preserve",
+    "singleQuote": true
+  },
+  "license-check-config": {
+    "src": [
+      "app/**/*",
+      "tasks/**/*",
+      "*.js",
+      "!./node_modules/**/*"
+    ],
+    "path": "assets/header.txt",
+    "blocking": false,
+    "logInfo": false,
+    "logError": true
+  },
+  "devDependencies": {
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "chokidar": "^3.6.0",
+    "express": "^4.19.2",
+    "fs-extra": "^11.2.0",
+    "highlight.js": "^11.9.0",
+    "morgan": "^1.10.0",
+    "nunjucks": "^3.2.4",
+    "postcss": "^8.4.38",
+    "rollup": "^4.18.0",
+    "sass": "^1.77.2"
+  }
+}

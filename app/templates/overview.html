@@ -1,0 +1,147 @@
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ -->
+
+<section class="Section" data-section="overview">
+  <h2 class="Heading">
+    <span id="overview" data-section-anchor></span>
+    Overview
+  </h2>
+
+  <p>This demo site serves as a reference for how developers can use container queries, with a fallback for non-supporting browsers. It implements the techniques outlined in the article <a href="{{ blogPostUrl }}">How to use container queries now</a>.
+
+  <p>The strategy is simple to implement, highly-performant, and embraces progressive enhancement, so if you want to use container queries on your site, this is a great option!</p>
+
+  <responsive-container>
+    <div class="DemoWrapper">
+      <div class="InfoBox">
+        <div class="InfoBox-figure">
+          <svg class="Icon">
+            <use xlink:href="#star"></use>
+          </svg>
+        </div>
+        <div class="InfoBox-content">
+          <noscript>
+            <aside class="Note">
+              <strong>It looks like you have JavaScript disabled.</strong> That's OK! All the content on the site is still viewable, but keep in mind most of the interactive features won't work.
+            </aside>
+          </noscript>
+
+          <h3 class="InfoBox-title">How to use the site</h3>
+          <ul>
+            <li>Browse through the demos listed in the left-hand navigation menu. For each of the demos, resize them to see how they respond.
+            <strong class="visible@MD">Note: the demos are best viewed on a large screen so you can resize them.</strong></li>
+            <li>You can resize the demo by dragging the divider between this content area and the "Pinned demo" sidebar. You can also collapse both the right and left sidebars or resize the browser window.
+            <li>Lastly, you can click the "pin demo in sidebar" button from any demo page to compare different demos side by side.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </responsive-container>
+
+  <h3>How it works</h3>
+
+  <p>In browsers that support container queries natively, all styles are handled (as expected) by the <code>@container</code> rules defined in the CSS.</p>
+
+  <p>In browsers that don't support container queries, a <code>&lt;responsive-container&gt;</code> components is added that leverages <code>ResizeObserver</code> to add breakpoint-specific classes to itself whenever its size changes. Fallback styles are then defined in the CSS that match the exact behavior of the native <code>@container</code>. For more details, check out the blog post  <a href="{{ blogPostUrl }}">How to use container queries now</a> or view the <a href="{{ repoUrl }}">demo source</a> on GitHub.</p>
+
+  <p>To better understand how the live representation of the <code>&lt;responsive-container&gt;</code> DOM structure. Resize the content area to see it change:</p>
+
+  <responsive-container>
+    <div class="DemoWrapper">
+<!-- <pre> indentation is significant, so keep to the left -->
+<pre class="LiveCodeDemo"><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">responsive-container</span><span class="LiveCodeDemo-spacer"> </span><span class="LiveCodeDemo-classAttr"><span class="hljs-attr">class</span>=<span class="hljs-string">"<span class="LiveCodeDemo-classAttrValue"></span>"</span></span> &gt;</span>
+  <span class="hljs-comment">&lt;!-- Component goes here... --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">responsive-container</span>&gt;</span></code></pre>
+    </div>
+  </responsive-container>
+
+  <p>The default breakpoint classes used on this site correspond to the following size definitions. <em>(Note that breakpoint sizes are fully customizable, and not all components define styles for every breakpoint)</em>:</p>
+
+  <table>
+    <tr>
+      <th>Breakpoint name</th>
+      <th>Container size</th>
+    </tr>
+    <tr>
+      <td>XS</td>
+      <td><em>(base styles, applied by default)</em></td>
+    </tr>
+    <tr>
+      <td>SM</td>
+      <td><code>@container (min-width: 384px)</code></td>
+    </tr>
+    <tr>
+      <td>MD</td>
+      <td><code>@container (min-width: 576px)</code></td>
+    </tr>
+    <tr>
+      <td>LG</td>
+      <td><code>@container (min-width: 768px)</code></td>
+    </tr>
+    <tr>
+      <td>XL</td>
+      <td><code>@container (min-width: 960px)</code></td>
+    </tr>
+  </table>
+
+  <aside class="Note">
+    <strong>Note:</strong> if you want to use custom breakpoints on a per-container basis, you can! See the <a href="#custom-breakpoints">custom breakpoints</a> demo for an example.
+  </aside>
+
+  <h3>Testing the fallback</h3>
+
+  <p>Most developers reading this are probably using a modern browser, and if so it means you're looking at the native container query version rather than the fallback version.</p>
+  <p>To see the different variations of this strategy in action, you can check out the following builds:</p>
+
+  <table>
+    <tr>
+      <th>Version</th>
+      <th>Description</th>
+    </tr>
+
+    <tr>
+      <td><a href="./">index.html</a></td>
+      <td>Contains both the native and fallback versions <em>(uses feature detection to serve the appropriate one)</em></td>
+    </tr>
+    <tr>
+      <td><a href="native-only.html">native-only.html</a></td>
+      <td>Contains just the native version <em>(non-supporting browsers will see the default styles)</em></td>
+    </tr>
+    <tr>
+      <td><a href="fallback-only.html">fallback-only.html</a></td>
+      <td>Contains just the fallback version <em>(useful for testing that the fallback works properly)</em></td>
+    </tr>
+    <tr>
+      <td><a href="no-fallback.html">no-fallback.html</a></td>
+      <td>Contains no fallback <em>(useful for seeing how the default styles look if the fallback fails for any reason) </em></td>
+    </tr>
+  </table>
+
+  <h3>Next steps</h3>
+
+  <ul>
+    <li>
+      <p><strong>Want to go deeper?</strong><br>
+        Read about the <a href="{{ blogPostUrl }}">implementation</a> and check out the <a href="{{ repoUrl }}">source code</a>.</p>
+    <li>
+      <p><strong>Have an idea to improve the strategy?</strong><br>
+        <a href="{{ repoUrl }}/issues/new">Open an issue</a> on GitHub!</p>
+    <li>
+      <p><strong>Disagree with everything I've ever said?</strong><br>
+        Cool, write a blog post and tell the world why your idea is better!</p>
+    </li>
+  </ul>
+</section>

@@ -1,0 +1,78 @@
+/*
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+@use '../base/breakpoint.scss' as *;
+
+.LiveCodeDemo {
+  margin-top: 0;
+
+  &-spacer {
+    display: none;
+  }
+
+  &-classAttr {
+    display: none;
+  }
+
+  /* -------------- */
+  /* Breakpoint: SM */
+  /* -------------- */
+
+  @include breakpoint('SM') {
+    &-spacer {
+      display: inline;
+    }
+
+    &-classAttr {
+      background-color: hsla(60, 100%, 50%, 0.4);
+      display: inline;
+    }
+
+    &-classAttrValue::after {
+      content: 'SM';
+    }
+  }
+
+  /* -------------- */
+  /* Breakpoint: MD */
+  /* -------------- */
+
+  @include breakpoint('MD') {
+    &-classAttrValue::after {
+      content: 'SM MD';
+    }
+  }
+
+  /* -------------- */
+  /* Breakpoint: LG */
+  /* -------------- */
+
+  @include breakpoint('LG') {
+    &-classAttrValue::after {
+      content: 'SM MD LG';
+    }
+  }
+
+  /* -------------- */
+  /* Breakpoint: XL */
+  /* -------------- */
+
+  @include breakpoint('XL') {
+    &-classAttrValue::after {
+      content: 'SM MD LG XL';
+    }
+  }
+}

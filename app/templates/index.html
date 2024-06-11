@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<!--
+ Copyright 2024 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ -->
+
+<html lang="en">
+<head>
+  <title>{{ title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  {% if version == 'auto' %}
+  <link rel="stylesheet" href="main.css">
+  {% endif %}
+
+  {% if version == 'modern' %}
+  <link rel="stylesheet" href="main-modern-only.css">
+  {% endif %}
+
+  {% if version == 'fallback' %}
+  <link rel="stylesheet" href="main-fallback-only.css">
+  {% endif %}
+
+  {% if version == 'none' %}
+  <link rel="stylesheet" href="main-no-fallback.css">
+  {% endif %}
+
+  <script type="module" src="main.js"></script>
+
+  <link rel="canonical" href="{{ url }}">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@{{ shareInfo.via }}">
+  <meta property="og:url" content="{{ url }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ desc }}">
+  <meta property="og:image" content="{{ url }}responsive-components-demo.png">
+</head>
+<body>
+  <div class="App">
+    <div class="App-nav" tabindex="-1">
+      <header class="App-navHeader">
+        <span class="App-navHeaderTitle">Demos</span>
+        <span class="App-navHide" data-requires-js>
+          <button class="IconButton IconButton--dark">
+            <svg class="Icon">
+              <use xlink:href="#arrow_back"></use>
+            </svg>
+          </button>
+        </span>
+      </header>
+      {% include 'nav.html' %}
+    </div>
+
+    <div class="App-main">
+      <div class="App-mainHeader" tabindex="-1">
+        <span class="App-navShow" data-requires-js tabindex="-1">
+          <button class="IconButton">
+            <svg class="Icon">
+              <use xlink:href="#menu"></use>
+            </svg>
+          </button>
+        </span>
+        {% include 'header.html' %}
+        <span class="App-sidebarShow" data-requires-js tabindex="-1">
+          <button class="IconButton">
+            <svg class="Icon">
+              <use xlink:href="#chrome_reader_mode"></use>
+            </svg>
+          </button>
+        </span>
+      </div>
+
+      <div class="App-mainContent">
+        <div class="App-content">
+          <main class="Content">
+            {% include 'overview.html' %}
+            {% include 'demos/calendar.html' %}
+            {% include 'demos/card.html' %}
+            {% include 'demos/form.html' %}
+            {% include 'demos/gallery.html' %}
+            {% include 'demos/nested-containers.html' %}
+            {% include 'demos/custom-breakpoints.html' %}
+            <script>
+              (function() {
+                // Show the chosen selection or the first one.
+                var $section = document.querySelector(
+                    '[data-section="' + location.hash.slice(1) + '"]') ||
+                        document.querySelector('.Section');
+
+                if ($section) {
+                  $section.classList.add('Section--isSelected');
+                } else {
+                  throw new Error('No section to display');
+                }
+              }());
+            </script>
+          </main>
+        </div>
+        <div class="App-sidebar" tabindex="-1">
+          <div class="App-sidebarGutter" data-requires-js></div>
+          <header class="App-sidebarHeader">
+            <span class="App-sidebarHeaderTitle">Pinned demo</span>
+            <span class="App-sidebarHide" data-requires-js>
+              <button class="IconButton">
+                <svg class="Icon">
+                  <use xlink:href="#close"></use>
+                </svg>
+              </button>
+            </span>
+          </header>
+          <aside class="Sidebar">
+            <responsive-container>
+              {% include 'components/Card.html' %}
+            </responsive-container>
+          </aside>
+        </div>
+      </div>
+      <div class="App-footer">
+        {% include 'footer.html' %}
+      </div>
+    </div>
+    <div class="App-modalOverlay" data-requires-js></div>
+  </div>
+
+  {% include 'icons.svg' %}
+
+  {% if version == 'auto' %}
+  <script type="module">
+    if (!CSS.supports('container-type: inline-size')) {
+      import('./responsive-container.js');
+    }
+  </script>
+  {% endif %}
+
+  {% if version == 'fallback' %}
+  <script type="module" src="./responsive-container.js"></script>
+  {% endif %}
+
+  <noscript>
+    <style>
+      responsive-container {
+        opacity: 1;
+        animation: none;
+      }
+      .Section {
+        display: block!important;
+      }
+      [data-requires-js] {
+        display: none;
+      }
+      [data-section-anchor] {
+        position: static!important;
+        display: inline!important;
+      }
+      @media (max-width: 48em) {
+        .App-nav {
+          contain: content;
+          display: block;
+          overflow: hidden;
+          position: static!important;
+          width: 100%;
+        }
+      }
+    </style>
+  </noscript>
+</body>
+</html>
