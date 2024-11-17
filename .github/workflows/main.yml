@@ -1,0 +1,9 @@
+# Clone the git repository and cd into the cloned directory.
+git clone https://github.com/GoogleChromeLabs/container-queries.git
+cd container-queries
+
+# Install the dependencies
+npm install
+
+# Build and serve the site at http://localhost:8080/
+npm starthttps://github.com/GoogleChromeLabs/container-queries.githttps://github.com/admin-xspace/jun-container-queries.githttp://localhost:8080/admin-xspace:develophttps://github.com/ampproject/amp-wp.wiki.git.github/workflows
