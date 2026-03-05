@@ -18,7 +18,7 @@
   "scripts": {
     "build": "rm -rf ./public && node tasks/build.js & rollup -c",
     "start": "node tasks/build.js && rollup -w -c --no-watch.clearScreen & node tasks/watch.js",
-    "deploy": "NODE_ENV=production npm run build && gsutil -m rsync -rd public gs://chrome-dev-demos/public/container-queries"
+    "deploy": "NODE_ENV=production npm run build && gcloud storage rsync --recursive --delete-unmatched-destination-objects public gs://chrome-dev-demos/public/container-queries"
   },
   "prettier": {
     "arrowParens": "always",
