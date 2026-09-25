@@ -16,8 +16,8 @@
   },
   "license": "Apache-2.0",
   "scripts": {
-    "build": "rm -rf ./public && node tasks/build.js & rollup -c",
-    "start": "node tasks/build.js && rollup -w -c --no-watch.clearScreen & node tasks/watch.js",
+    "build": "rm -rf ./public && concurrently \"node tasks/build.js\" \"rollup -c\"",
+    "start": "concurrently --kill-others \"node tasks/build.js && rollup -w -c --no-watch.clearScreen\" \"node tasks/watch.js\"",
     "deploy": "NODE_ENV=production npm run build && gcloud storage rsync --recursive --delete-unmatched-destination-objects public gs://chrome-dev-demos/public/container-queries"
   },
   "prettier": {
@@ -42,6 +42,7 @@
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^1.0.0",
     "chokidar": "^3.6.0",
+    "concurrently": "^10.0.5",
     "express": "^4.19.2",
     "fs-extra": "^11.2.0",
     "highlight.js": "^11.9.0",
